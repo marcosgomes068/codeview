@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeView - Gerador de Imagens de Código</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link id="prismTheme" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Mono:400,500,700|JetBrains+Mono:400,500,700|Source+Code+Pro:400,500,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="window-bar" id="windowBar">
+            <div class="window-buttons">
+                <span class="window-btn red"></span>
+                <span class="window-btn yellow"></span>
+                <span class="window-btn green"></span>
+            </div>
+            <input id="fileNameInput" type="text" value="main.js" maxlength="24" />
+            <span id="fileIcon" class="file-icon">🟨</span>
+        </div>
+        <h1>CodeView</h1>
+        <div class="controls-panel" id="controlsPanel">
+            <div class="controls-grid">
+                <label for="langSelect">Linguagem:</label>
+                <select id="langSelect">
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="java">Java</option>
+                    <option value="c">C</option>
+                    <option value="cpp">C++</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="bash">Bash</option>
+                    <option value="json">JSON</option>
+                    <option value="markdown">Markdown</option>
+                </select>
+                <label for="themeSelect">Tema:</label>
+                <select id="themeSelect">
+                    <option value="tomorrow">Mac (Tomorrow Night)</option>
+                    <option value="vsc">VSCode Dark</option>
+                    <option value="okaidia">Okaidia</option>
+                    <option value="coy">Coy</option>
+                    <option value="solarizedlight">Solarized Light</option>
+                    <option value="default">Claro (Default)</option>
+                    <option value="dracula">Dracula</option>
+                    <option value="nord">Nord</option>
+                    <option value="night-owl">Night Owl</option>
+                    <option value="material">Material</option>
+                </select>
+                <label for="fontSelect">Fonte:</label>
+                <select id="fontSelect">
+                    <option value="Fira Mono">Fira Mono</option>
+                    <option value="JetBrains Mono">JetBrains Mono</option>
+                    <option value="Source Code Pro">Source Code Pro</option>
+                </select>
+                <label for="fontSize">Tamanho da fonte:</label>
+                <input type="range" min="12" max="28" value="16" id="fontSize" />
+                <span id="fontSizeValue">16px</span>
+                <label for="lineHeight">Espaçamento:</label>
+                <input type="range" min="1.2" max="2.2" step="0.1" value="1.5" id="lineHeight" />
+                <span id="lineHeightValue">1.5</span>
+                <label for="paddingRange">Padding:</label>
+                <input type="range" min="8" max="48" value="24" id="paddingRange" />
+                <span id="paddingValue">24px</span>
+                <button id="hideControls">Esconder controles</button>
+                <button id="resetBtn">Resetar</button>
+            </div>
+        </div>
+        <textarea id="codeInput" placeholder="Cole ou digite seu código aqui..."></textarea>
+        <div id="codePreview" class="code-preview light">
+            <div class="mac-balls">
+                <span class="mac-ball red"></span>
+                <span class="mac-ball yellow"></span>
+                <span class="mac-ball green"></span>
+            </div>
+            <pre class="line-numbers"><code id="codeOutput" class="language-javascript"></code></pre>
+        </div>
+        <div class="bottom-actions">
+            <button id="copyBtn" title="Copiar código">Copiar</button>
+            <button id="pasteBtn" title="Colar do clipboard">Colar</button>
+            <button id="fullscreenBtn" title="Tela cheia">Tela cheia</button>
+            <button id="exportBtn">Exportar Imagem</button>
+        </div>
+        <div id="loader" class="loader hidden"></div>
+        <div id="tooltip" class="tooltip"></div>
+    </div>
+    <script src="src/main.js"></script>
+</body>
+</html>
