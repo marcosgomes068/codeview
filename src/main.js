@@ -60,11 +60,32 @@ exportBtn.addEventListener('click', function() {
 });
 
 function exportImage() {
-    html2canvas(codePreview).then(canvas => {
+    // Esconde tooltips, loaders e controles temporariamente
+    const controlsPanel = document.getElementById('controlsPanel');
+    const tooltip = document.getElementById('tooltip');
+    const loader = document.getElementById('loader');
+    if (controlsPanel) controlsPanel.style.visibility = 'hidden';
+    if (tooltip) tooltip.style.visibility = 'hidden';
+    if (loader) loader.style.visibility = 'hidden';
+
+    // Garante fundo sólido para exportação
+    const oldBg = codePreview.style.background;
+    codePreview.style.background = '#23272e';
+
+    html2canvas(codePreview, {
+        backgroundColor: '#23272e',
+        useCORS: true,
+        scale: window.devicePixelRatio || 2
+    }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'codigo.png';
         link.href = canvas.toDataURL();
         link.click();
+        // Restaura visual
+        codePreview.style.background = oldBg;
+        if (controlsPanel) controlsPanel.style.visibility = '';
+        if (tooltip) tooltip.style.visibility = '';
+        if (loader) loader.style.visibility = '';
     });
 }
 
