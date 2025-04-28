@@ -68,25 +68,30 @@ function exportImage() {
     if (tooltip) tooltip.style.visibility = 'hidden';
     if (loader) loader.style.visibility = 'hidden';
 
-    // Garante fundo sólido para exportação
-    const oldBg = codePreview.style.background;
-    codePreview.style.background = '#23272e';
+    // Seleciona apenas o bloco <pre> para exportar
+    const pre = codePreview.querySelector('pre');
+    const isLight = codePreview.classList.contains('light');
+    const bgColor = isLight ? '#f8f8fa' : '#23272e';
+    const oldBg = pre.style.background;
+    pre.style.background = bgColor;
 
-    html2canvas(codePreview, {
-        backgroundColor: '#23272e',
-        useCORS: true,
-        scale: window.devicePixelRatio || 2
-    }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'codigo.png';
-        link.href = canvas.toDataURL();
-        link.click();
-        // Restaura visual
-        codePreview.style.background = oldBg;
-        if (controlsPanel) controlsPanel.style.visibility = '';
-        if (tooltip) tooltip.style.visibility = '';
-        if (loader) loader.style.visibility = '';
-    });
+    setTimeout(() => {
+        html2canvas(pre, {
+            backgroundColor: bgColor,
+            useCORS: true,
+            scale: window.devicePixelRatio || 2
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'codigo.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            // Restaura visual
+            pre.style.background = oldBg;
+            if (controlsPanel) controlsPanel.style.visibility = '';
+            if (tooltip) tooltip.style.visibility = '';
+            if (loader) loader.style.visibility = '';
+        });
+    }, 150);
 }
 
 // Carrega Prism.js para realce de sintaxe e plugins
