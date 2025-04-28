@@ -16,6 +16,10 @@ const prismThemes = {
     coy: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-coy.min.css',
     solarizedlight: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-solarizedlight.min.css',
     default: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css',
+    dracula: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-dracula.min.css',
+    nord: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-nord.min.css',
+    'night-owl': 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-night-owl.min.css',
+    material: 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-material-oceanic.min.css',
 };
 
 function updatePreview() {
@@ -70,8 +74,16 @@ function exportImage() {
 
     // Seleciona apenas o bloco <pre> para exportar
     const pre = codePreview.querySelector('pre');
-    const isLight = codePreview.classList.contains('light');
-    const bgColor = isLight ? '#f8f8fa' : '#23272e';
+    const theme = themeSelect.value;
+    // Mapear temas claros e escuros
+    const lightThemes = ['solarizedlight', 'coy', 'default'];
+    const darkThemes = ['tomorrow','vsc','okaidia','dracula','nord','night-owl','material'];
+    let bgColor = '#23272e';
+    if (lightThemes.includes(theme)) bgColor = '#f8f8fa';
+    if (theme === 'dracula') bgColor = '#282a36';
+    if (theme === 'nord') bgColor = '#2e3440';
+    if (theme === 'night-owl') bgColor = '#011627';
+    if (theme === 'material') bgColor = '#263238';
     const oldBg = pre.style.background;
     pre.style.background = bgColor;
 
